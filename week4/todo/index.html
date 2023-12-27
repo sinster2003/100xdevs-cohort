@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo DOM</title>
+</head>
+<body>
+    <script>
+        let globalID = 0;
+
+        function handleDone(id) {
+            console.log(id);
+            document.getElementById(id).textContent = "Done!";
+        }
+
+        function addTodo() {
+            const title = document.getElementById("title").value;
+            const description = document.getElementById("description").value;
+            const container = document.getElementById("container");
+
+            const outerDiv = document.createElement("div");
+            const titleP = document.createElement("p");
+            titleP.textContent = title;
+            outerDiv.appendChild(titleP);
+            const descriptionP = document.createElement("p");
+            descriptionP.textContent = description;
+            outerDiv.appendChild(descriptionP);
+            const buttonDone = document.createElement("button");
+            buttonDone.textContent = "Mark as done";
+            buttonDone.setAttribute("id", `${globalID++}`);
+            buttonDone.addEventListener("click",(e) => {
+                handleDone(`${e.target.id}`);
+            });
+            outerDiv.appendChild(buttonDone);
+
+            // container.innerHTML += `<div>
+            //     <p>${title}</p>
+            //     <p>${description}</p>    
+            //     <button>Mark as done</button>
+            // </div>`
+
+            container.appendChild(outerDiv);
+        }
+        </script>
+        <input type="text" id="title" placeholder="title">
+        <br>
+        <br>
+        <input type="text" id="description" placeholder="description">
+        <br>
+        <br>
+    <button onclick="addTodo()">Add todo</button>
+    <div id="container"></div>
+</body>
+</html>
